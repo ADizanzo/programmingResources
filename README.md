@@ -2,6 +2,7 @@
 
 Este proyecto es una página web que reúne una amplia variedad de recursos para desarrolladores, tanto para el frontend como para el backend. Aquí podrás encontrar material valioso para aprender y mejorar tus habilidades en programación, ya sea que estés comenzando o quieras profundizar en algún área específica.
 
+
 ## Contenido del sitio
 
 - **Cursos**: Enlaces y recomendaciones de cursos para aprender tecnologías del frontend (como HTML, CSS, JavaScript, frameworks) y backend (Node.js, Python, bases de datos, entre otros).
@@ -9,6 +10,7 @@ Este proyecto es una página web que reúne una amplia variedad de recursos para
 - **Rutas de aprendizaje**: Mapas y guías sobre cómo avanzar en tu camino como desarrollador, desde niveles básicos hasta avanzados.
 - **Iconos y recursos gráficos**: Recursos visuales como iconos, bibliotecas y herramientas para mejorar la apariencia de tus proyectos.
 - **Herramientas y librerías**: Referencias a librerías y herramientas útiles para el desarrollo de proyectos tanto en el frontend como en el backend.
+
 
 ## Cómo usar este sitio
 

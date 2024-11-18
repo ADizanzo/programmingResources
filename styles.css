@@ -178,11 +178,31 @@ h2 {
 }
 
 
+
+.descripcion {
+    display: none; /* Por defecto, la descripción está oculta */
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.descripcion.visible {
+    display: block; /* Cuando se activa, la descripción se muestra */
+}
+
+
+
 /*CURSOS*/
 .product-content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 50px;
+}
+
+.image-container a img,
+.product-image {
+    cursor: pointer;
 }
 
 .product-1 {

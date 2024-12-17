@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="icon" href="images/programacion1.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="header">
+        
+        <div class="menu container">
+            <a href="#" class="logo">Logo</a>
+            <input type="checkbox" id="menu" />
+
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html">Recursos</a></li>
+                    <li><a href="index.html">Tutoriales</a></li>
+                    <li><a href="index.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </header>
+
+
+
+
+
+    <main class="container">
+        <div id="carrito-items">
+            <!-- Aca se va a mostrar los cursos agregados -->
+        </div>
+        <div>
+            <h3 id="total-cursos"></h3>
+            <button id="vaciar-carrito" class="btn-2">Vaciar Carrito</button>
+        </div>
+    </main>
+
+    <script>
+        // Mostrar carrito
+        const carritoContainer = document.getElementById('carrito-items');
+        const totalCursos = document.getElementById('total-cursos');
+
+        // Obtener el carrito del localStorage
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        function mostrarCarrito() {
+            carritoContainer.innerHTML = ''; // Limpiar contenido
+
+            // Si el carrito está vacío
+            if (carrito.length === 0) {
+                carritoContainer.innerHTML = '<p>El carrito está vacío.</p>';
+                totalCursos.textContent = '';
+                return;
+            }
+
+            // Mostrar cada curso en el carrito
+            carrito.forEach((curso, index) => {
+                carritoContainer.innerHTML += `
+                    <div class="product-1">
+                        <img src="${curso.imagen}" alt="${curso.nombre}" class="carrito-imagen">
+                        <h3>${curso.nombre}</h3>
+                        <p>${curso.descripcion}</p>
+                        <p>${curso.horas}</p>
+                        <div>
+                            <label for="cantidad-${index}">Cantidad: </label>
+                            <input type="number" id="cantidad-${index}" value="${curso.cantidad}" min="1" onchange="actualizarCantidad(${index}, this.value)">
+                        </div>
+                         <button class="btn-2 comprar-btn" onclick="comprarCurso('${curso.nombre}')">Comprar</button>
+                        <button class="btn-2" onclick="eliminarCurso(${index})">Eliminar</button>
+                    </div>
+                `;
+            });
+
+            totalCursos.textContent = `Total de cursos en el carrito: ${carrito.length}`;
+        }
+
+        // Actualizar cantidad del producto
+        function actualizarCantidad(index, nuevaCantidad) {
+            if (nuevaCantidad < 1) {
+                nuevaCantidad = 1; // Asegurar que la cantidad no sea menor a 1
+            }
+            carrito[index].cantidad = parseInt(nuevaCantidad);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            mostrarCarrito();
+        }
+
+        // eliminar un curso
+        function eliminarCurso(index) {
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            mostrarCarrito();
+        }
+
+
+        function comprarCurso(nombreCurso) {
+        alert(`¡Has comprado el curso "${nombreCurso}" con éxito!`);
+        carrito = carrito.filter(curso => curso.nombre !== nombreCurso);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarCarrito();
+    }
+
+        // Vaciar carrito
+        document.getElementById('vaciar-carrito').addEventListener('click', () => {
+            localStorage.removeItem('carrito');
+            carrito = [];
+            mostrarCarrito();
+        });
+
+        // Mostrar carrito al cargar la página
+        mostrarCarrito();
+    </script>
+
+
+
+
+
+
+    <footer class="footer container">
+
+        <div class="link">
+            <a href="#" class="logo">Logo</a>
+        </div>
+
+        <div class="link">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="#">Recursos</a></li>
+                <li><a href="#">Tutoriales</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

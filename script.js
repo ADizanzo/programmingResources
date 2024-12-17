@@ -67,3 +67,64 @@ productImages.forEach((image) => {
         }
     });
 });
+
+
+
+
+
+// Seleccionar todos los botones "Comprar"
+const botonesComprar = document.querySelectorAll('.btn-2');
+
+// Función para agregar información del curso al carrito
+function agregarAlCarrito(event) {
+    event.preventDefault();
+
+    // Buscar el contenedor del producto clicado
+    const productContainer = event.target.closest('.product-1');
+
+    // Obtener información del curso
+    const curso = {
+        id: productContainer.querySelector('.product-image').getAttribute('data-id'),
+        nombre: productContainer.querySelector('h3').textContent,
+        descripcion: productContainer.querySelector('.descripcion').textContent,
+        horas: productContainer.querySelector('.hour p').textContent,
+        imagen: productContainer.querySelector('.product-image').src,
+        cantidad: 1
+    };
+
+    // Obtener carrito existente del localStorage
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    // Verificar si el curso ya está en el carrito
+    const existe = carrito.find(item => item.id === curso.id);
+    if (existe) {
+        existe.cantidad++; // Incrementa la cantidad si ya existe
+    } else {
+        carrito.push(curso); // Agrega el curso si no existe
+    }
+    
+    // Guardar el carrito actualizado en localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Redirigir al carrito
+    window.location.href = 'carrito.html';
+}
+
+// Añadir evento "click" a cada botón "Comprar"
+botonesComprar.forEach(boton => {
+    boton.addEventListener('click', agregarAlCarrito);
+});
+
+
+
+
+
+function comprarCurso(nombreCurso) {
+    // Simular la acción de compra (puede ser una llamada a un backend)
+    alert(`¡Has comprado el curso "${nombreCurso}" con éxito!`);
+
+    // Opcional: Eliminar el curso del carrito después de comprar
+    carrito = carrito.filter(curso => curso.nombre !== nombreCurso);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarCarrito(); // Refrescar la vista del carrito
+}

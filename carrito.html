@@ -33,37 +33,41 @@
 
     <main class="container">
         <div id="carrito-items">
-            <!-- Aca se va a mostrar los cursos agregados -->
+
         </div>
         <div>
             <h3 id="total-cursos"></h3>
+            <h3 id="total-dinero"></h3>
             <button id="vaciar-carrito" class="btn-2">Vaciar Carrito</button>
         </div>
     </main>
 
     
 
-    
+
     <script>
         // Mostrar carrito
         const carritoContainer = document.getElementById('carrito-items');
         const totalCursos = document.getElementById('total-cursos');
-
-        // Obtener el carrito del localStorage
+        const totalDinero = document.getElementById('total-dinero');
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        let totalPrecio = 0;
+
 
         function mostrarCarrito() {
-            carritoContainer.innerHTML = ''; // Limpiar contenido
+            carritoContainer.innerHTML = '';
 
-            // Si el carrito está vacío
             if (carrito.length === 0) {
                 carritoContainer.innerHTML = '<p>El carrito está vacío.</p>';
                 totalCursos.textContent = '';
+                totalDinero.textContent = '';
                 return;
             }
 
-            // Mostrar cada curso en el carrito
             carrito.forEach((curso, index) => {
+                const subtotal = curso.cantidad * parseFloat(curso.horas.replace('$', '').trim());
+                totalPrecio += subtotal;
+
                 carritoContainer.innerHTML += `
                     <div class="product-1">
                         <img src="${curso.imagen}" alt="${curso.nombre}" class="carrito-imagen">
@@ -74,27 +78,31 @@
                             <label for="cantidad-${index}">Cantidad: </label>
                             <input type="number" id="cantidad-${index}" value="${curso.cantidad}" min="1" onchange="actualizarCantidad(${index}, this.value)">
                         </div>
-                         <button class="btn-2 comprar-btn" onclick="comprarCurso('${curso.nombre}')">Comprar</button>
+                        <p>Subtotal: $${subtotal.toFixed(2)}</p>
+                        <button class="btn-2 comprar-btn" onclick="comprarCurso('${curso.nombre}')">Comprar</button>
                         <button class="btn-2" onclick="eliminarCurso(${index})">Eliminar</button>
                     </div>
                 `;
             });
 
             totalCursos.textContent = `Total de cursos en el carrito: ${carrito.length}`;
+            totalDinero.textContent = `Total a pagar: $${totalPrecio.toFixed(2)}`;
         }
 
         // Actualizar cantidad del producto
         function actualizarCantidad(index, nuevaCantidad) {
             if (nuevaCantidad < 1) {
-                nuevaCantidad = 1; // Asegurar que la cantidad no sea menor a 1
+                nuevaCantidad = 1;
             }
-            carrito[index].cantidad = parseInt(nuevaCantidad);
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            carrito[index].cantidad = parseInt(nuevaCantidad) || 1;
             localStorage.setItem('carrito', JSON.stringify(carrito));
             mostrarCarrito();
         }
 
         // eliminar un curso
         function eliminarCurso(index) {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             carrito.splice(index, 1);
             localStorage.setItem('carrito', JSON.stringify(carrito));
             mostrarCarrito();
@@ -115,7 +123,7 @@
             mostrarCarrito();
         });
 
-        // Mostrar carrito al cargar la página
+
         mostrarCarrito();
     </script>
 

@@ -45,11 +45,10 @@ img{
     justify-content: space-between;
 }
 
-.logo {
-    color: #FF5A2C;
-    font-size: 25px;
-    font-weight: 800;
-    text-transform: uppercase;
+.logo img {
+    width: 60px;
+    height: auto;
+    display: block;
 }
 
 .menu .navbar ul li {

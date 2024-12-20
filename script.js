@@ -2,7 +2,7 @@
 const form = document.querySelector('form');
 
 function verificarFormulario(e) {
-    e.preventDefault(); // Evita el envío del formulario
+    e.preventDefault();
 
     const nombre = form.querySelector('input[name="nombre"]').value.trim();
     const correo = form.querySelector('input[type="email"]').value.trim();
@@ -16,6 +16,7 @@ function verificarFormulario(e) {
 }
 
 form.addEventListener('submit', verificarFormulario);
+
 
 // Mostrar productos en consola
 const productos = [
@@ -52,16 +53,13 @@ mostrarProductos(productos);
 
 
 
-// Selecciona todas las imágenes de los cursos
 const productImages = document.querySelectorAll('.product-image');
 
-// Función para alternar la visibilidad de la descripción
 productImages.forEach((image) => {
     image.addEventListener('click', (event) => {
         const productContainer = event.target.closest('.product-1');
         const descripcion = productContainer.querySelector('.descripcion');
         
-        // Alterna la clase visible
         if (descripcion) {
             descripcion.classList.toggle('visible');
         }
@@ -71,18 +69,13 @@ productImages.forEach((image) => {
 
 
 
-
-// Seleccionar todos los botones "Comprar"
 const botonesComprar = document.querySelectorAll('.btn-2');
 
-// Función para agregar información del curso al carrito
 function agregarAlCarrito(event) {
     event.preventDefault();
 
-    // Buscar el contenedor del producto clicado
     const productContainer = event.target.closest('.product-1');
 
-    // Obtener información del curso
     const curso = {
         id: productContainer.querySelector('.product-image').getAttribute('data-id'),
         nombre: productContainer.querySelector('h3').textContent,
@@ -92,25 +85,23 @@ function agregarAlCarrito(event) {
         cantidad: 1
     };
 
-    // Obtener carrito existente del localStorage
+
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    // Verificar si el curso ya está en el carrito
+
     const existe = carrito.find(item => item.id === curso.id);
     if (existe) {
-        existe.cantidad++; // Incrementa la cantidad si ya existe
+        existe.cantidad++;
     } else {
-        carrito.push(curso); // Agrega el curso si no existe
+        carrito.push(curso);
     }
     
-    // Guardar el carrito actualizado en localStorage
     localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    // Redirigir al carrito
+
     window.location.href = 'carrito.html';
 }
 
-// Añadir evento "click" a cada botón "Comprar"
 botonesComprar.forEach(boton => {
     boton.addEventListener('click', agregarAlCarrito);
 });
@@ -120,22 +111,20 @@ botonesComprar.forEach(boton => {
 
 
 function comprarCurso(nombreCurso) {
-    // Simular la acción de compra (puede ser una llamada a un backend)
     alert(`¡Has comprado el curso "${nombreCurso}" con éxito!`);
 
-    // Opcional: Eliminar el curso del carrito después de comprar
     carrito = carrito.filter(curso => curso.nombre !== nombreCurso);
     localStorage.setItem('carrito', JSON.stringify(carrito));
-    mostrarCarrito(); // Refrescar la vista del carrito
+    mostrarCarrito();
 }
 
 
 
 
-// Contenedor para las reseñas
+//reseñas
 const reseñasContainer = document.querySelector('.reseñas-grid');
 
-// Datos simulados de reseñas
+
 const reseñas = [
     {
         titulo: "¡Excelente curso de Python!",
@@ -159,7 +148,7 @@ const reseñas = [
     }
 ];
 
-// Función para mostrar las reseñas
+
 function mostrarReseñas() {
     reseñas.forEach(reseña => {
         reseñasContainer.innerHTML += `
@@ -172,8 +161,9 @@ function mostrarReseñas() {
     });
 }
 
-// Llamar a la función para cargar reseñas
+
 mostrarReseñas();
+
 
 
 

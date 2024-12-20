@@ -128,3 +128,52 @@ function comprarCurso(nombreCurso) {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     mostrarCarrito(); // Refrescar la vista del carrito
 }
+
+
+
+
+// Contenedor para las reseñas
+const reseñasContainer = document.querySelector('.reseñas-grid');
+
+// Datos simulados de reseñas
+const reseñas = [
+    {
+        titulo: "¡Excelente curso de Python!",
+        texto: "Aprendí mucho más de lo que esperaba. La metodología es clara y los ejemplos prácticos son muy útiles.",
+        autor: "Juan Pérez"
+    },
+    {
+        titulo: "Muy útil para principiantes",
+        texto: "El curso de Desarrollo Web me ayudó a entender los conceptos básicos. Lo recomiendo totalmente.",
+        autor: "Ana Gómez"
+    },
+    {
+        titulo: "Angular explicado a la perfección",
+        texto: "El contenido está bien estructurado y los ejemplos son aplicables a proyectos reales.",
+        autor: "Carlos López"
+    },
+    {
+        titulo: "React desde cero",
+        texto: "Este curso es increíblemente detallado. Me siento preparado para construir aplicaciones web completas.",
+        autor: "María Fernández"
+    }
+];
+
+// Función para mostrar las reseñas
+function mostrarReseñas() {
+    reseñas.forEach(reseña => {
+        reseñasContainer.innerHTML += `
+            <div class="reseña-card">
+                <h3>${reseña.titulo}</h3>
+                <p>${reseña.texto}</p>
+                <p class="autor">- ${reseña.autor}</p>
+            </div>
+        `;
+    });
+}
+
+// Llamar a la función para cargar reseñas
+mostrarReseñas();
+
+
+
